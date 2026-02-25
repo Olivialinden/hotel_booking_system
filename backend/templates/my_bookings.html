@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+<!-- 指定 body class，讓此頁套用「我的訂房頁」專用背景圖 -->
+{% block body_class %}my-bookings-bg{% endblock %}
+
+{% block content %}
+
+<!-- has_bookings：是否有任何訂單（空列表會是 False） -->
+{% set has_bookings = all_bookings %}
+<!-- user：從 session 取得目前登入者資訊（在 auth.py 登入時寫入） -->
+{% set user = request.session.get("user") %}
+
+{% if flash %}
+  <div class="alert alert-{{ flash.level }}">
+    {{ flash.message }}
+  </div>
+{% endif %}
+
+<!-- =========================
+  我的訂房頁主標題區
+  - 顯示使用者名稱（若沒有 user_name，退回顯示 email）
+  - 顯示歡迎文字
+  ========================= -->
+<h2>Hello, {{ user.user_name or user.email }}</h2>
+<p>Welcome back to your bookings</p>
+
+{% if has_bookings %}
+
+  <!-- =========================
+       訂單列表表格
+       - 有資料時顯示表格
+       - 每一列代表一筆 Booking
+       ========================= -->
+  <div class="table-box">
+    <table>
+
+      <!-- 表頭：固定欄位名稱 -->
+      <tr>
+        <th class="booking-id-col">Booking ID</th>
+        <th>Room</th>
+        <th>Check-in</th>
+        <th>Check-out</th>
+        <th>Total Amount</th>
+        <th>Status</th>
+      </tr>
+
+      <!-- 表格資料列：遍歷後端傳入的 all_bookings -->
+      {% for b in all_bookings %}
+        <!-- is_active：僅 active 訂單允許顯示取消按鈕 -->
+        {% set is_active = b.status == "active" %}
+
+        <tr>
+          <!-- 訂單編號 -->
+          <td class="booking-id-col">{{ b.id }}</td>
+
+          <!-- 房型名稱（透過關聯 b.room 取得） -->
+          <td>{{ b.room.name }}</td>
+
+          <!-- 入住與退房日期 -->
+          <td>{{ b.check_in }}</td>
+          <td>{{ b.check_out }}</td>
+          <td>{{ currency_code }} {{ "%.2f"|format(b.total_amount) }}</td>
+
+          <!-- 狀態與操作區 -->
+          <td>
+            <div class="status-actions">
+              <!-- 顯示目前訂單狀態（active / cancelled） -->
+              <span class="status">{{ b.status }}</span>
+
+              {% if is_active %}
+                <!--
+                  只有 active 才顯示取消按鈕：
+                  - 送出 POST /cancel-booking
+                  - 使用 hidden input 傳 booking_id
+                -->
+                <form method="post" action="/create-checkout-session">
+                  <input type="hidden" name="booking_id" value="{{ b.id }}">
+                  <button type="submit" class="pay-btn">
+                    Pay with Card
+                  </button>
+                </form>
+
+                <form method="post" action="/cancel-booking">
+                  <input type="hidden" name="booking_id" value="{{ b.id }}">
+                  <button type="submit" class="cancel-btn">
+                    Cancel
+                  </button>
+                </form>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+
+    </table>
+  </div>
+
+{% else %}
+  <!-- 無任何訂單時，顯示提示文字 -->
+  <p>You have no bookings yet.</p>
+{% endif %}
+
+{% endblock %}

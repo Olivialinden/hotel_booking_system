@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- =========================
+  首页核心变量说明
+  1) user：从 session 取当前登录用户（登录时在 auth.py 写入）
+     - 有 user：显示预订表单
+     - 无 user：只提示先登录
+  2) has_date_filter：是否已同时选择 check_in + check_out
+     - True：允许提交 Reserve，并显示不可用房间区
+     - False：Reserve 按钮禁用，提示先选日期
+     ========================= -->
+
+{% set user = request.session.get("user") %}
+{% set has_date_filter = check_in and check_out %}
+
+{% if flash %}
+  <div class="alert alert-{{ flash.level }}">
+    {{ flash.message }}
+  </div>
+{% endif %}
+
+<!-- =========================
+  日期筛选器（GET）
+  - 提交后刷新当前页面并带上查询参数
+  - check-out 的最小值默认跟随 check-in
+  ========================= -->
+<form method="get" class="date-filter">
+  <label>
+    Check-in
+                <input type="date" id="check-in" name="check_in"
+                  value="{{ check_in }}"
+                  min="{{ today }}">
+  </label>
+
+  <label>
+    Check-out
+                <input type="date" id="check-out" name="check_out"
+                  value="{{ check_out }}"
+                  min="{{ check_in or today }}">
+  </label>
+
+  <button type="submit">Search Availability</button>
+</form>
+
+<!-- =========================
+     可预订房间区
+     ========================= -->
+<h2>Rooms & Suites</h2>
+
+{% if available_rooms %}
+  <div class="room-grid">
+
+    {% for room in available_rooms %}
+      <div class="room-card">
+
+        <!-- 房间基础信息 -->
+        <h3>{{ room.name }}</h3>
+        <p class="amenities">{{ room.amenities }}</p>
+        <p class="price">From {{ room.price }} per night</p>
+
+        {% if user %}
+          <!--
+            已登录用户：显示预订表单
+            说明：这里用 hidden input 传 room_id / check_in / check_out 给后端 /book
+          -->
+          <form method="post" action="/book" class="booking-form">
+            <input type="hidden" name="room_id" value="{{ room.id }}">
+            <input type="hidden" name="check_in" value="{{ check_in }}">
+            <input type="hidden" name="check_out" value="{{ check_out }}">
+
+            {% if has_date_filter %}
+              <!-- 已选完整日期：可点击预订 -->
+              <button type="submit">Reserve Room</button>
+            {% else %}
+              <!-- 未选完整日期：按钮禁用（画面效果由 CSS :disabled 控制） -->
+              <button type="submit" disabled>Select dates above</button>
+            {% endif %}
+          </form>
+        {% else %}
+          <!-- 未登录用户：不给预订按钮，只提示先登录 -->
+          <p class="login-hint">
+            <a href="/login">Login</a> to book this room
+          </p>
+        {% endif %}
+
+      </div>
+    {% endfor %}
+
+  </div>
+{% else %}
+  <!-- 没有可订房间时的兜底提示 -->
+  <p class="no-rooms">No rooms available today.</p>
+{% endif %}
+
+<!-- =========================
+     已选日期后，显示“该日期范围不可订”的房间
+     条件：has_date_filter 为真 且 booked_rooms 非空
+     ========================= -->
+  
+{% if has_date_filter and booked_rooms %}
+  <h2 class="unavailable-title">Unavailable for Selected Dates</h2>
+
+  <div class="room-grid">
+    {% for room in booked_rooms %}
+      <div class="room-card booked">
+        <h3>{{ room.name }}</h3>
+        <p class="amenities">{{ room.amenities }}</p>
+        <p class="price">Currently unavailable</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% endblock %}

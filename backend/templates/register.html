@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+{% set error_message = has_error %}
+
+<!--Register Page-->
+<div class="card login-card">
+
+  <h2>Register</h2>
+
+  <!--Error Messages -->
+
+  {% if email_exists %}
+    <!-- Email already exists -->
+    <p class="login-error">
+      Email already exists
+    </p>
+  {% endif %}
+
+  {% if error_message %}
+    <!-- Validation error from backend -->
+    <p class="login-error">
+      {{ error_message }}
+    </p>
+  {% endif %}
+
+  <!--Registration Form (POST)-->
+  <form class="auth-form" method="post" action="/register" autocomplete="off">
+
+    <input
+      name="user_name"
+      type="text"
+      placeholder="User name"
+      autocomplete="off"
+    >
+
+    <input
+      name="email"
+      type="email"
+      placeholder="Email"
+      required
+      autocomplete="off"
+    >
+
+    <input
+      name="password"
+      type="password"
+      placeholder="Password"
+      required
+      autocomplete="new-password"
+    >
+
+    <button type="submit">
+      Register
+    </button>
+
+  </form>
+
+</div>
+
+{% endblock %}

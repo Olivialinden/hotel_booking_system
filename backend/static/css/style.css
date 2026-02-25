@@ -1,0 +1,629 @@
+/* ===== 全站通用：盒模型與基礎樣式 ===== */
+* {
+  box-sizing: border-box;
+}
+
+/* ===== 全站背景與字體 ===== */
+body {
+  position: relative;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  margin: 0;
+  background: url('../images/hotel_background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #333;
+}
+
+/* ===== 背景遮罩：略微壓暗整體背景 ===== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35); 
+  z-index: -1;
+}
+
+/* ===== 頁面專用背景 ===== */
+/* 我的訂房頁：獨立背景圖 */
+body.my-bookings-bg {
+  background: url('../images/my_booking_bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* 登入頁：獨立背景圖 */
+body.login-bg {
+  background: url('../images/login_bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* ===== Header 區塊：Logo + 導覽 ===== */
+header {
+  background: #1f2933;
+  color: white;
+  padding: 18px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 300;
+  letter-spacing: 0.4px;
+}
+
+.nav-welcome {
+  color: rgba(255,255,255,0.9);
+  font-weight: 300;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Logo 字體樣式 ===== */
+.hotel-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.hotel-logo .sub {
+  font-size: 14px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  margin-left: 8px;
+}
+
+/* ===== 主內容容器：置中與寬度控制 ===== */
+main {
+  max-width: 1100px;
+  margin: 150px auto 30px;
+  padding: 0 15px;
+}
+
+/* ===== 系統訊息提示 ===== */
+.alert {
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.alert-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.alert-info {
+  background: #dbeafe;
+  color: #1e3a8a;
+  border: 1px solid #93c5fd;
+}
+
+/* ===== 房型列表：卡片網格 ===== */
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* 卡片共用：磨砂玻璃背景 + 陰影 */
+.room-card, .card {
+  border-radius: 16px;
+  padding: 20px;
+  background: rgba(255,255,255,0.28);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.35);
+  backdrop-filter: blur(14px);
+}
+
+.room-card h3 {
+  margin-top: 0;
+}
+
+.room-type {
+  color: #555;
+}
+
+/* 價格強調 */
+.price {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* ===== 訂房表單 ===== */
+.booking-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.booking-form input {
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+}
+
+.booking-form input[type="date"],
+.date-filter input[type="date"] {
+  /* 日期欄位：高級磨砂感 */
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.55);
+  color: #111827;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  backdrop-filter: blur(10px);
+}
+
+.booking-form button {
+  /* 訂房按鈕 */
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.booking-form button:hover {
+  background: #1e40af;
+}
+
+.booking-form button:disabled {
+  background: #94a3b8;
+  color: #f8fafc;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.85;
+}
+.booking-form button:disabled:hover {
+  background: #94a3b8;
+}
+
+/* ===== 日期篩選區 ===== */
+/* 日期篩選整體容器：水平排列 + 玻璃感底板 */
+.date-filter {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.28);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+.date-filter label {
+  /* 日期標籤文字樣式 */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #f8fafc;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.date-filter input[type="date"] {
+  height: 34px;
+  padding: 4px 10px;
+}
+
+.date-filter button {
+  /* 搜尋按鈕：漸層與陰影 */
+  background: linear-gradient(135deg, #2f6cf6, #1e40af);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 13px;
+  min-width: 140px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(30,64,175,0.35);
+}
+
+.date-filter button:hover {
+  filter: brightness(1.05);
+}
+
+/* ===== 登入/註冊輸入與按鈕 ===== */
+/* 登入/註冊輸入欄位 */
+form input[type="email"],
+form input[type="password"],
+form input[type="text"],
+form input[type="number"] {
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #111827;
+  padding: 6px 8px;
+  border-radius: 4px;
+  min-width: 220px;
+  display: inline-block;
+}
+
+/* 登入/註冊提交按鈕 */
+form button[type="submit"] {
+  background: #f1f5f9;
+  border: 1px solid #93c5fd;
+  color: #1e3a8a;
+  padding: 8px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background: #bfdbfe;
+}
+
+/* 登入/註冊：輸入欄位垂直排列 */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="number"] {
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+  min-width: 0;
+  text-align: center;
+}
+
+.auth-form button[type="submit"] {
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+}
+
+/* ===== 管理後台標題置中 ===== */
+.admin-title,
+.admin-subtitle {
+  text-align: center;
+}
+
+/* 未登入提示文字 */
+.login-hint {
+  margin-top: auto;
+  font-size: 14px;
+}
+
+/* ===== 表格：訂單/後台 ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255,255,255,0.28);
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  text-align: left;
+  background: rgba(255,255,255,0.28);
+}
+
+td {
+  background: rgba(255,255,255,0.28);
+}
+
+/* ===== 狀態樣式 ===== */
+.room-card.booked {
+  /* 已被訂的房型：降低可視性 */
+  background: #f1f5f9;
+  opacity: 0.6;
+}
+
+.room-card.booked h3 {
+  height: 34px;
+  line-height: 34px;
+  padding: 0 10px;
+  min-width: 140px;
+  box-sizing: border-box;
+}
+.room-card.booked .price {
+  color: #991b1b;
+  font-weight: 600;
+}
+
+.unavailable-title,
+.unavailable-text {
+  /* 不可訂房提示文字 */
+  text-align: center;
+  color: #ffffff;
+}
+
+.no-rooms {
+  color: #111827;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ===== 我的訂房頁：表格外框 ===== */
+.table-box {
+  background: rgba(255,255,255,0.28);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  backdrop-filter: blur(14px);
+}
+
+.status-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status {
+  font-weight: 600;
+  margin: 0;
+}
+
+.status-actions form {
+  margin: 0;
+}
+
+.cancel-btn {
+  padding: 4px 10px;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.pay-btn {
+  padding: 4px 10px;
+  font-size: 13px;
+  line-height: 1;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.pay-btn:hover {
+  background: #1e40af;
+}
+
+.booking-id-col {
+  width: 110px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 登入卡片：寬度與玻璃感 */
+.login-card {
+  width: 24%;
+  max-width: 320px;
+  margin: 90px auto;
+  padding: 18px 32px 32px;
+  background: rgba(255,255,255,0.28);
+  backdrop-filter: blur(14px);
+  text-align: center;
+}
+
+/* 登入成功提示文字 */
+.login-success {
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+}
+
+/* 登入/註冊錯誤提示文字 */
+.login-error {
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+}
+
+/* 修正 Chrome 自動填入背景顏色 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #f1f5f9 inset !important;
+  box-shadow: 0 0 0 1000px #f1f5f9 inset !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+
+/* =======================================
+   高级酒店 Admin Dashboard 升级版
+======================================= */
+
+
+/* =======================================
+   高级酒店 Admin Dashboard 升级版
+======================================= */
+
+.admin-container {
+  max-width: 950px;
+  margin: 120px auto 60px;
+  padding: 45px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+}
+
+.admin-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.admin-section-title {
+  color: #ffffff;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.admin-divider {
+  border: none;
+  height: 1px;
+  background: rgba(255,255,255,0.3);
+  margin: 30px 0;
+}
+
+/* 表单 */
+.admin-form {
+  display: flex;
+  gap: 15px;
+}
+
+.admin-form input[name] {
+  height: 46px;
+  padding: 0 16px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 12px;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.admin-form input[name]:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 4px rgba(96,165,250,0.35);
+}
+
+.admin-form button {
+  height: 46px;
+  padding: 0 22px;
+  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 15px 30px rgba(30,64,175,0.45);
+}
+
+.admin-form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(30,64,175,0.6);
+}
+
+/* 房间列表 */
+.admin-room-list {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-room-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  color: #ffffff;
+}
+
+.delete-btn {
+  height: 46px;
+  padding: 0 22px;
+  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 15px 30px rgba(30,64,175,0.45);
+}
+
+.delete-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(30,64,175,0.6);
+}
+
+/* 表格 */
+.admin-table-wrapper {
+  margin-top: 20px;
+}
+
+.admin-container table {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.admin-container th {
+  background: rgba(255,255,255,0.35);
+  font-weight: 600;
+}
+
+.admin-container td {
+  background: rgba(255,255,255,0.2);
+}
+
+/* 状态颜色 */
+.status-cancelled {
+  color: #ef4444;
+  font-weight: 600;
+}
+/*
+  以下媒体查询用于适配手机和平板等小屏幕设备。
+  可以根据实际页面结构，调整容器、图片、导航等样式。
+  max-width: 768px 表示屏幕宽度小于768像素时生效。
+  如需更细致适配，可添加更多媒体查询。
+*/
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    padding: 8px;
+  }
+  .container {
+    width: 100%;
+    padding: 0 5px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  nav, header, footer {
+    padding: 8px;
+    font-size: 16px;
+  }
+}
