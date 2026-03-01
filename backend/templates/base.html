@@ -12,9 +12,14 @@
 <body class="{% block body_class %}{% endblock %}">
 
   <!-- Header / Main Navigation -->
+
   <header>
     <h1>Morrow Hotel Booking</h1>
-
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('nav').classList.toggle('open')">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
     <nav>
       <!-- Always visible -->
       <a href="/">Home</a>
@@ -42,6 +47,16 @@
         <a href="/register">Register</a>
       {% endif %}
     </nav>
+    <script>
+      // 关闭菜单（点击导航链接时）
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('nav a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            document.querySelector('nav').classList.remove('open');
+          });
+        });
+      });
+    </script>
   </header>
 
   <!--Page Content Area-->

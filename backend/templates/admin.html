@@ -42,35 +42,42 @@
     <h3 class="admin-section-title">Bookings</h3>
 
     {% if bookings %}
-    <div class="admin-table-wrapper">
-      <table>
-        <tr>
-          <th class="booking-id-col">Booking ID</th>
-          <th>User</th>
-          <th>Room</th>
-          <th>Check-in</th>
-          <th>Check-out</th>
-          <th>Status</th>
-        </tr>
-        {% for b in bookings %}
-        <tr>
-          <td class="booking-id-col">{{ b.id }}</td>
-          <td>{{ b.user.user_name }}</td>
-          <td>{{ b.room.name }}</td>
-          <td>{{ b.check_in }}</td>
-          <td>{{ b.check_out }}</td>
-          <td>
-              {% if b.status == "cancelled" %}
-                <span class="status-cancelled">Cancelled</span>
-              {% elif b.status == "paid" %}
-                <span class="status-paid">paid</span>
-              {% else %}
-                Active
-              {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
+    <div class="admin-table-wrapper table-scroll-x">
+      <div class="table-scroll-inner">
+        <table>
+          <thead>
+            <tr>
+              <th class="booking-id-col">Booking ID</th>
+              <th>User</th>
+              <th>Room</th>
+              <th>Check-in</th>
+              <th>Check-out</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for b in bookings %}
+          <tr>
+            <td class="booking-id-col">{{ b.id }}</td>
+            <td>{{ b.user.user_name }}</td>
+            <td>{{ b.room.name }}</td>
+            <td>{{ b.check_in }}</td>
+            <td>{{ b.check_out }}</td>
+            <td>
+                {% if b.status == "cancelled" %}
+                  <span class="status-cancelled">Cancelled</span>
+                {% elif b.status == "paid" %}
+                  <span class="status-paid">paid</span>
+                {% else %}
+                  Active
+                {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scroll-tip">← 左右滑动查看更多</div>
     </div>
     {% else %}
     <p>No bookings yet.</p>
