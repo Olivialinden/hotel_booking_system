@@ -493,8 +493,27 @@ form input[type="number"] {
   color: #111827;
   padding: 6px 8px;
   border-radius: 4px;
-  min-width: 220px;
-  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: block;
+}
+@media (max-width: 600px) {
+  .auth-form input[type="text"],
+  .auth-form input[type="email"],
+  .auth-form input[type="password"],
+  .auth-form input[type="number"] {
+    width: 100%;
+    min-width: 0;
+    font-size: 16px;
+    padding: 12px 8px;
+    box-sizing: border-box;
+  }
+  .auth-form button[type="submit"] {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 0;
+  }
 }
 
 /* 登入/註冊提交按鈕 */
