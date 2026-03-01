@@ -212,9 +212,8 @@ body {
   position: relative;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
   margin: 0;
-  background: url('../images/hotel_background.jpg') no-repeat center center fixed;
+  background: url('../images/hotel_background.jpg') no-repeat center center;
   background-size: cover;
-  background-attachment: fixed;
   color: #333;
 }
 
@@ -233,16 +232,33 @@ body::before {
     ====================== */
 /* 我的訂房頁：獨立背景圖 */
 body.my-bookings-bg {
-  background: url('../images/my_booking_bg.jpg') no-repeat center center fixed;
+  background: url('../images/my_booking_bg.jpg') no-repeat center center;
   background-size: cover;
-  background-attachment: fixed;
 }
 
 /* 登入頁：獨立背景圖 */
 body.login-bg {
-  background: url('../images/login_bg.jpg') no-repeat center center fixed;
+  background: url('../images/login_bg.jpg') no-repeat center center;
   background-size: cover;
-  background-attachment: fixed;
+
+}
+
+@media (max-width: 600px) {
+  body {
+    background: url('../images/hotel_background.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+  }
+  body.login-bg {
+    background: url('../images/login_bg.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+  }
+  body.my-bookings-bg {
+    background: url('../images/my_booking_bg.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+  }
 }
 
 /* ===== Header 區塊：Logo + 導覽 ===== */
