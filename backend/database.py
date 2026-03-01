@@ -1,7 +1,12 @@
 import os
+from dotenv import load_dotenv
+
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+load_dotenv()  # 加这行！
 
+print(f"DATABASE_URL = {os.getenv('DATABASE_URL')}")
 # 优先读取 Railway 或生产环境中的 DATABASE_URL
 DATABASE_URL = os.getenv("DATABASE_URL")
 
