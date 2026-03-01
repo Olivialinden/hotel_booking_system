@@ -111,7 +111,7 @@ def show_my_bookings_page(
     """
     db = SessionLocal()
     all_bookings = get_bookings_by_user(db, current_user["id"])
-    currency_code = os.getenv("STRIPE_CURRENCY", "usd").upper()
+    currency_code = os.getenv("STRIPE_CURRENCY", "sek").upper()
 
     # 為模板補上總金額：總價 = 晚數 * 每晚價格
     for booking in all_bookings:
