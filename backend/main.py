@@ -3,8 +3,8 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
-from database import Base, engine
-from routers import pages, auth, bookings, admin, payment
+from backend.database import Base, engine
+from backend.routers import pages, auth, bookings, admin, payment
 
 # 根据 ORM 模型创建数据库表
 # 此时 metadata 已经有表信息了，所以能建表

@@ -11,7 +11,7 @@ queries.py
 只要看到 db.query，就应该在这个文件里
 """
 
-from models import User, Room, Booking
+from backend.models import User, Room, Booking
 
 
 
