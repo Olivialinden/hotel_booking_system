@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 from backend.database import Base, engine
+from dotenv import load_dotenv
+load_dotenv()
 
 from fastapi.templating import Jinja2Templates
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
