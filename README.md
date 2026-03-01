@@ -2,6 +2,10 @@
 ---
 # Morrow Hotel Booking System
 
+## 📷 Project Preview
+
+<img src="backend/static/images/WebsiteScreenshot.jpg" width="800">
+
 ## Overview
 Morrow Hotel Booking System is a web application for managing hotel room reservations. It allows users to register, log in, view available rooms, and manage their bookings. Admins can manage rooms and review bookings through a dedicated dashboard.
 
@@ -82,7 +86,5 @@ pip install -r requirements.txt
    ```
 6. Access the site at `http://localhost:8000`.
 
-## 📷 Project Preview
 
-<img src="backend/static/images/WebsiteScreenshot.jpg" width="800">
 
