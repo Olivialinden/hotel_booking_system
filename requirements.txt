@@ -10,3 +10,4 @@ email-validator
 itsdangerous
 PyMySQL
 stripe>=9.0.0
+aiofiles
