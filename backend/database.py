@@ -10,6 +10,12 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     DATABASE_URL = "sqlite:///./hotel.db"
 
+
+if DATABASE_URL.startswith("mysql://"):
+    DATABASE_URL = DATABASE_URL.replace("mysql://", "mysql+pymysql://", 1)
+
+
+
 # 如果是 SQLite 需要特殊参数
 if "sqlite" in DATABASE_URL:
     engine = create_engine(

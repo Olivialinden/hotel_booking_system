@@ -9,5 +9,4 @@ python-multipart
 email-validator
 itsdangerous
 PyMySQL
-mariadb 
 stripe>=9.0.0

@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Request, Depends, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
@@ -9,7 +10,13 @@ from backend.dependencies import require_admin_user, pop_flash, set_flash
 router = APIRouter()
 
 # 建立模板渲染器：指定 HTML 模板目錄為 templates/
-templates = Jinja2Templates(directory="templates")
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+templates = Jinja2Templates(
+    directory=os.path.join(BASE_DIR, "templates")
+)
+
 
 @router.get("/admin")
 def admin_page(request: Request, user=Depends(require_admin_user)):
