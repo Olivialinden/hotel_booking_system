@@ -1,6 +1,10 @@
 import os
 from fastapi import APIRouter, Request, Depends
-from main import templates
+
+import os
+from fastapi.templating import Jinja2Templates
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 from datetime import date
 import os
 from database import SessionLocal
