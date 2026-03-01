@@ -10,5 +10,4 @@ email-validator
 itsdangerous
 PyMySQL
 mariadb 
-stripe
- 
+stripe>=9.0.0
