@@ -2,7 +2,7 @@
 ---
 # Morrow Hotel Booking System
 
-## 📷 Project Preview
+## Project Preview
 
 <img src="backend/static/images/WebsiteScreenshot.jpg" width="800">
 
@@ -73,18 +73,37 @@ Install with:
 pip install -r requirements.txt
 ```
 
+
 ## Setup & Usage
 
-1. Clone the repository and navigate to the project directory.
+1. Clone the repository and make sure you are in the project root directory (which contains backend/, static/, requirements.txt, etc.).
 2. Create and activate a Python virtual environment.
-3. Install dependencies with `pip install -r requirements.txt`.
-4. Configure your database settings in `.env` or the backend config.
-5. Run the backend server:
-  enter backend
-   ```
-   python -m uvicorn main:app --reload
-   ```
-6. Access the site at `http://localhost:8000`.
+3. Install dependencies:
+  ```
+  pip install -r requirements.txt
+  ```
+4. In the project root, create a `.env` file and configure your database and Stripe keys, for example:
+  ```
+  STRIPE_SECRET_KEY=sk_test_xxx
+  STRIPE_CURRENCY=sek
+  # Other database-related settings
+  ```
+5. For local development/testing, **you must run uvicorn from the project root**:
+  ```
+  uvicorn backend.main:app --reload
+  ```
+  - This ensures static files (/static/) and template paths work correctly.
+  - For production, use the command in the Procfile.
+6. Visit `http://localhost:8000` to view the site.
+
+### Notes
+- **Static files**: All CSS/JS/images should be accessed via the `/static/` path. In templates, use:
+  ```html
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+  ```
+- **Database**: If using SQLite, it is recommended to use an absolute path, or ensure your working directory and database file are at the same level.
+- **Module imports**: All Python files use `from backend.xxx import ...` absolute imports, compatible with `uvicorn backend.main:app` startup.
+- **If CSS does not work or database connection fails, first check your working directory, static file paths, and .env configuration.**
 
 
 
