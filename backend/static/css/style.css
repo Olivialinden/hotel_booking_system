@@ -668,6 +668,32 @@ td {
   text-align: center;
 }
 
+@media (max-width: 600px) {
+  .login-card {
+    width: 95vw;
+    max-width: 98vw;
+    min-width: 0;
+    margin: 32px auto;
+    padding: 12px 6vw 24px 6vw;
+    box-sizing: border-box;
+  }
+  .auth-form input[type="text"],
+  .auth-form input[type="email"],
+  .auth-form input[type="password"],
+  .auth-form input[type="number"] {
+    width: 100%;
+    min-width: 0;
+    font-size: 16px;
+    padding: 10px 8px;
+    box-sizing: border-box;
+  }
+  .auth-form button[type="submit"] {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 0;
+  }
+}
+
 /* 登入成功提示文字 */
 .login-success {
   color: rgba(255,255,255,0.75);
