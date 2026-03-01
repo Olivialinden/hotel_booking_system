@@ -82,5 +82,7 @@ pip install -r requirements.txt
    ```
 6. Access the site at `http://localhost:8000`.
 
+## 📷 Project Preview
 
+<img src="backend/static/images/WebsiteScreenshot.jpg" width="800">
 
