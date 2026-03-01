@@ -10,12 +10,12 @@ import re
 from urllib.parse import quote
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import RedirectResponse
-from database import SessionLocal
+from backend.database import SessionLocal
 
 #导入新的函数名
-from security import generate_password_hash, check_password
+from backend.security import generate_password_hash, check_password
 
-from queries import get_user_by_email, create_user
+from backend.queries import get_user_by_email, create_user
 #创建一个"路由收集器"盒子
 router = APIRouter()
 

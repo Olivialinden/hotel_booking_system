@@ -2,9 +2,9 @@ from fastapi import APIRouter, Request, Depends, Form, HTTPException
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
-from database import SessionLocal
-from models import Booking
-from dependencies import get_logged_in_user, set_flash
+from backend.database import SessionLocal
+from backend.models import Booking
+from backend.dependencies import get_logged_in_user, set_flash
 from datetime import date
 
 # 建立一個路由器，用來集中管理「訂房相關」API

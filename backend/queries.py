@@ -1,18 +1,14 @@
 """
 queries.py
 ------------
-这个文件专门负责数据库操作：
 - 查数据
-- 新增数据
-- 不处理业务逻辑
-- 不处理 HTTP / 页面 / session
-
 规则：
 只要看到 db.query，就应该在这个文件里
 """
 
 from backend.models import User, Room, Booking
-
+from backend.database import SessionLocal
+from backend.models import User, Room, Booking
 
 
 # User 相关查询

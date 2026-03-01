@@ -7,9 +7,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 from datetime import date
 import os
-from database import SessionLocal
-from dependencies import get_logged_in_user, pop_flash
-from queries import (
+from backend.database import SessionLocal
+from backend.dependencies import get_logged_in_user, pop_flash
+from backend.queries import (
     get_booked_room_ids,
     get_available_rooms,
     get_booked_rooms,

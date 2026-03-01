@@ -6,9 +6,9 @@ from fastapi.templating import Jinja2Templates
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 from fastapi.responses import RedirectResponse
-from database import SessionLocal
-from models import Room, Booking
-from dependencies import require_admin_user, pop_flash, set_flash
+from backend.database import SessionLocal
+from backend.models import Room, Booking
+from backend.dependencies import require_admin_user, pop_flash, set_flash
 
 # 建立「管理後台」路由收集器
 router = APIRouter()
