@@ -1,5 +1,5 @@
 
-
+import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
@@ -13,6 +13,7 @@ Base.metadata.create_all(bind=engine)
 
 # 创建 FastAPI 应用
 app = FastAPI()
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 添加 Session 中间件（用于登录状态）
 app.add_middleware(
@@ -21,7 +22,7 @@ app.add_middleware(
 )
 
 # 挂载静态文件   
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 
 # 注册路由
 app.include_router(pages.router)
