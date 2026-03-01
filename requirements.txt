@@ -9,4 +9,6 @@ python-multipart
 email-validator
 itsdangerous
 PyMySQL
-mariadb  
+mariadb 
+stripe
+ 
