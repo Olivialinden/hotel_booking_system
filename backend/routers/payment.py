@@ -83,7 +83,8 @@ def create_checkout_session(
             success_url=f"{app_base_url}/payment/success?session_id={{CHECKOUT_SESSION_ID}}",
             cancel_url=f"{app_base_url}/my-bookings",
         )
-    except Exception:
+    except Exception as e:
+        print(f"Stripe error: {e}")
         # 任何 Stripe 連線/API 錯誤，統一回前頁顯示友善訊息
         set_flash(request, "Unable to start payment session", "error")
         return RedirectResponse("/my-bookings", status_code=303)
