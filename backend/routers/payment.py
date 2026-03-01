@@ -3,9 +3,9 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 import os
 import stripe
-from backend.database import SessionLocal
-from backend.models import Booking
-from backend.dependencies import get_logged_in_user, set_flash
+from database import SessionLocal
+from models import Booking
+from dependencies import get_logged_in_user, set_flash
 
 
 router = APIRouter()

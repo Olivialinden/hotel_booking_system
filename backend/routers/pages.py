@@ -1,11 +1,11 @@
 import os
 from fastapi import APIRouter, Request, Depends
-from backend.main import templates
+from main import templates
 from datetime import date
 import os
-from backend.database import SessionLocal
-from backend.dependencies import get_logged_in_user, pop_flash
-from backend.queries import (
+from database import SessionLocal
+from dependencies import get_logged_in_user, pop_flash
+from queries import (
     get_booked_room_ids,
     get_available_rooms,
     get_booked_rooms,
