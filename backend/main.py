@@ -4,6 +4,11 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 from backend.database import Base, engine
+
+from fastapi.templating import Jinja2Templates
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
 from backend.routers import pages, auth, bookings, admin, payment
 
 # 根据 ORM 模型创建数据库表

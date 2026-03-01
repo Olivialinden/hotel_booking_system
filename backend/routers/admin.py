@@ -1,6 +1,6 @@
 import os
 from fastapi import APIRouter, Request, Depends, Form
-from fastapi.templating import Jinja2Templates
+from backend.main import templates
 from fastapi.responses import RedirectResponse
 from backend.database import SessionLocal
 from backend.models import Room, Booking
@@ -11,11 +11,6 @@ router = APIRouter()
 
 # 建立模板渲染器：指定 HTML 模板目錄為 templates/
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-templates = Jinja2Templates(
-    directory=os.path.join(BASE_DIR, "templates")
-)
 
 
 @router.get("/admin")
