@@ -6,7 +6,8 @@
   <title>Morrow Hotel Booking</title>
 
   <!-- Global CSS: used by all pages -->
-  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+ 
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') | replace('http://', 'https://') }}">
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
