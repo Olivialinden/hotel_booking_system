@@ -3,7 +3,7 @@
 # Morrow Hotel Booking System
 
 ## Overview
-Morrow Hotel Booking System is a web application for managing hotel room reservations. It allows users to register, log in, view available rooms, and manage their bookings. Admins can manage rooms and bookings through a dedicated dashboard.
+Morrow Hotel Booking System is a web application for managing hotel room reservations. It allows users to register, log in, view available rooms, and manage their bookings. Admins can manage rooms and review bookings through a dedicated dashboard.
 
 ## User Flow
 
@@ -13,7 +13,7 @@ Morrow Hotel Booking System is a web application for managing hotel room reserva
 3. Browse available rooms
 4. Filter rooms by check-in/check-out dates
 5. Select a room and book
-6. View and manage personal bookings (cancel, update)
+6. View and manage personal bookings (cancel, pay)
 
 ### Admin
 1. Log in to admin dashboard
@@ -76,19 +76,11 @@ pip install -r requirements.txt
 3. Install dependencies with `pip install -r requirements.txt`.
 4. Configure your database settings in `.env` or the backend config.
 5. Run the backend server:
+  enter backend
    ```
-   uvicorn backend.main:app --reload
+   python -m uvicorn main:app --reload
    ```
 6. Access the site at `http://localhost:8000`.
 
-## Mobile & Tablet Adaptation
 
-To make the website display well on mobile and tablet devices:
-- Add the viewport meta tag in the HTML <head>:
-  `<meta name="viewport" content="width=device-width, initial-scale=1">`
-- Use responsive CSS (such as @media queries)
-- Optimize layouts: avoid fixed widths, use percentage or flex layouts
-- Test all pages on different devices
-
-It is recommended to use responsive frameworks like Bootstrap or Tailwind CSS to improve mobile experience.
 
