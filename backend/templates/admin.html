@@ -25,7 +25,7 @@
       <ul class="admin-room-list">
         {% for room in rooms %}
           <li>
-            <span>{{ room.name }} — {{ room.amenities }} — ${{ room.price }}</span>
+            <span>{{ room.name }} — {{ room.amenities }} — SEK{{ room.price }}</span>
             <form method="post" action="/admin/delete-room" style="display:inline;">
               <input type="hidden" name="room_id" value="{{ room.id }}">
               <button type="submit" class="delete-btn">Delete</button>
