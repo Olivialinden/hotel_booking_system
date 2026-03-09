@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block body_class %}my-bookings-bg{% endblock %}
+
+{% block content %}
+
+{% set has_bookings = all_bookings %}
+{% set user = request.session.get("user") %}
+
+{% if flash %}
+  <div class="alert alert-{{ flash.level }}">
+    {{ flash.message }}
+  </div>
+{% endif %}
+
+<h2>Hello, {{ user.user_name or user.email }}</h2>
+<p>Welcome back to your bookings</p>
+
+{% if has_bookings %}
+
+  <div class="table-box">
+    <table>
+
+      <tr>
+        <th class="booking-id-col">Booking ID</th>
+        <th>Room</th>
+        <th>Check-in</th>
+        <th>Check-out</th>
+        <th>Total Amount</th>
+        <th>Status</th>
+      </tr>
+
+      {% for b in all_bookings %}
+        {% set is_active = b.status == "active" %}
+
+        <tr>
+          <td class="booking-id-col">{{ b.id }}</td>
+
+          <td>{{ b.room.name }}</td>
+
+          <td>{{ b.check_in }}</td>
+          <td>{{ b.check_out }}</td>
+          <td>{{ currency_code }} {{ "%.2f"|format(b.total_amount) }}</td>
+
+          <td>
+            <div class="status-actions">
+              <span class="status">{{ b.status }}</span>
+
+              {% if is_active %}
+                <form method="post" action="/create-checkout-session">
+                    <input
+                      type="hidden"
+                      name="booking_id"
+                      value="{{ b.id }}"
+                    >
+                  <button type="submit" class="pay-btn">
+                    Pay with Card
+                  </button>
+                </form>
+
+                <form method="post" action="/cancel-booking">
+                    <input
+                      type="hidden"
+                      name="booking_id"
+                      value="{{ b.id }}"
+                    >
+                  <button type="submit" class="cancel-btn">
+                    Cancel
+                  </button>
+                </form>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+
+    </table>
+  </div>
+
+{% else %}
+  <p>You have no bookings yet.</p>
+{% endif %}
+
+{% endblock %}

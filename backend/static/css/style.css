@@ -1,0 +1,946 @@
+@media (max-width: 600px) {
+  .date-filter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 2px 2px 2px 2px;
+    width: 100% !important;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+  }
+  .date-filter label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    font-size: 15px;
+    margin-bottom: 0;
+    min-width: 0;
+  }
+  .date-filter input[type="date"] {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin-bottom: 0;
+  }
+  .date-filter button {
+    width: 100%;
+    min-width: 0;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+/* Fix mobile background not full */
+html, body {
+  height: 100vh; /* Ensure background covers viewport */
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+@media (max-width: 600px) {
+  header, main, .room-grid, .room-card {
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  nav, nav.open {
+    max-width: 100vw !important;
+    width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    border-radius: 0 0 10px 10px;
+  }
+}
+@media (max-width: 1100px) {
+  .admin-form input[name], .admin-form button {
+    height: 38px !important;
+    font-size: 13px !important;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+@media (max-width: 600px) {
+  .admin-form input[name], .admin-form button {
+    height: 22px !important;
+    font-size: 11px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    line-height: 1.2 !important;
+  }
+  .admin-form input[name] {
+    min-height: 22px !important;
+    max-height: 22px !important;
+  }
+}
+@media (max-width: 1100px) {
+  .admin-form {
+    flex-wrap: wrap;
+  }
+  .admin-form input[name] {
+    flex: 1 1 180px;
+    min-width: 120px;
+    max-width: 100%;
+  }
+  .admin-form button {
+    flex: 0 0 auto;
+    width: 100%;
+    margin-top: 8px;
+    align-self: flex-end;
+  }
+}
+@media (max-width: 768px) {
+  .admin-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .admin-form input[name], .admin-form input[type="text"], .admin-form button {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  .admin-form button {
+    margin-top: 4px;
+  }
+}
+@media (max-width: 768px) {
+  .admin-room-list li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0;
+    padding: 10px 0 10px 0;
+  }
+  .admin-room-list li span {
+    flex: 1 1 0%;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    word-break: break-word;
+    padding-right: 10px;
+  }
+  .admin-room-list .delete-btn {
+    min-width: 68px;
+    max-width: 90px;
+    font-size: 15px;
+    height: auto;
+    align-self: center;
+    margin-left: 8px;
+    padding: 8px 0;
+    box-shadow: 0 2px 8px rgba(30,64,175,0.10);
+  }
+}
+/* Table horizontal scroll and tip */
+.table-scroll-x {
+  position: relative;
+}
+.table-scroll-inner {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table-scroll-tip {
+  display: none;
+  font-size: 13px;
+  color: #fff;
+  background: rgba(31,41,51,0.7);
+  padding: 2px 10px;
+  border-radius: 8px;
+  position: absolute;
+  right: 10px;
+  top: -28px;
+  z-index: 2;
+}
+@media (max-width: 768px) {
+  .table-scroll-tip {
+    display: block;
+  }
+  .table-scroll-inner table {
+    min-width: 600px;
+    width: max-content;
+    font-size: 15px;
+  }
+  .table-scroll-inner th, .table-scroll-inner td {
+    white-space: nowrap;
+  }
+  .admin-table-wrapper {
+    padding-bottom: 8px;
+  }
+}
+/* Global: box model and base style */
+* {
+  box-sizing: border-box;
+}
+
+/* Global: background and font */
+/* Header: logo and navbar */
+body {
+  position: relative;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  margin: 0;
+  background: url('../images/hotel_background.jpg') no-repeat center center;
+  background-size: cover;
+  color: #333;
+}
+
+/* Background overlay: darken */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35); 
+  z-index: -1;
+}
+
+/* Page specific background */
+/* Hamburger menu style */
+/* My bookings page: custom background */
+body.my-bookings-bg {
+  background: url('../images/my_booking_bg.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+/* Login page: custom background */
+body.login-bg {
+  background: url('../images/login_bg.jpg') no-repeat center center;
+  background-size: cover;
+
+}
+
+@media (max-width: 600px) {
+  body {
+    background: url('../images/hotel_background.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+  }
+  body.login-bg {
+    background: url('../images/login_bg.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+  }
+  body.my-bookings-bg {
+    background: url('../images/my_booking_bg.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+  }
+}
+
+/* Header: logo and navbar */
+header {
+  background: #1f2933;
+  color: white;
+  padding: 18px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  transition: max-height 0.3s, opacity 0.3s;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  z-index: 1001;
+}
+.nav-toggle .bar {
+  width: 26px;
+  height: 3px;
+  background: #fff;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 300;
+  letter-spacing: 0.4px;
+}
+
+.nav-welcome {
+  color: rgba(255,255,255,0.9);
+  font-weight: 300;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Logo font style */
+.hotel-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.hotel-logo .sub {
+  font-size: 14px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  margin-left: 8px;
+}
+
+/* Main content container: center and width */
+main {
+  max-width: 1100px;
+  margin: 90px auto 30px; /* Reduced top margin for mobile */
+  padding: 0 15px;
+}
+
+@media (max-width: 600px) {
+  main {
+    margin: 40px auto 20px; /* Further reduced top margin for mobile */
+  }
+  .date-filter {
+    margin-top: 0;
+    margin-bottom: 10px; /* Tighter spacing for mobile */
+  }
+}
+
+
+/* System message alert */
+.alert {
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.alert-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.alert-info {
+  background: #dbeafe;
+  color: #1e3a8a;
+  border: 1px solid #93c5fd;
+}
+
+/* Room list: card grid */
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* Card: glass background and shadow */
+.room-card, .card {
+  border-radius: 16px;
+  padding: 20px;
+  background: rgba(255,255,255,0.28);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.35);
+  backdrop-filter: blur(14px);
+}
+
+.room-card h3 {
+  margin-top: 0;
+}
+
+.room-type {
+  color: #555;
+}
+
+/* Price highlight */
+.price {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Booking form */
+.booking-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.booking-form input {
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+}
+
+.booking-form input[type="date"],
+.date-filter input[type="date"] {
+  /* Date input: glass effect */
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.55);
+  color: #111827;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  backdrop-filter: blur(10px);
+}
+
+.booking-form button {
+  /* Booking button */
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.booking-form button:hover {
+  background: #1e40af;
+}
+
+.booking-form button:disabled {
+  background: #94a3b8;
+  color: #f8fafc;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.85;
+}
+.booking-form button:disabled:hover {
+  background: #94a3b8;
+}
+
+/* Date filter area */
+/* Date filter container: horizontal, glass effect */
+.date-filter {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.28);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+.date-filter label {
+  /* Date label text style */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #f8fafc;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.date-filter input[type="date"] {
+  height: 34px;
+  padding: 4px 10px;
+}
+
+.date-filter button {
+  /* Search button: gradient and shadow */
+  background: linear-gradient(135deg, #2f6cf6, #1e40af);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 13px;
+  min-width: 140px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(30,64,175,0.35);
+}
+
+.date-filter button:hover {
+  filter: brightness(1.05);
+}
+
+/* Login/Register input and button */
+/* Login/Register input fields */
+form input[type="email"],
+form input[type="password"],
+form input[type="text"],
+form input[type="number"] {
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #111827;
+  padding: 6px 8px;
+  border-radius: 4px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: block;
+}
+@media (max-width: 600px) {
+  .auth-form input[type="text"],
+  .auth-form input[type="email"],
+  .auth-form input[type="password"],
+  .auth-form input[type="number"] {
+    width: 100%;
+    min-width: 0;
+    font-size: 16px;
+    padding: 12px 8px;
+    box-sizing: border-box;
+  }
+  .auth-form button[type="submit"] {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 0;
+  }
+}
+
+/* Login/Register submit button */
+form button[type="submit"] {
+  background: #f1f5f9;
+  border: 1px solid #93c5fd;
+  color: #1e3a8a;
+  padding: 8px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background: #bfdbfe;
+}
+
+/* Login/Register: vertical input fields */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="number"] {
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+  min-width: 0;
+  text-align: center;
+}
+
+.auth-form button[type="submit"] {
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Admin page title center */
+.admin-title,
+.admin-subtitle {
+  text-align: center;
+}
+
+/* Not logged in hint */
+.login-hint {
+  margin-top: auto;
+  font-size: 14px;
+}
+
+/* Table: booking/admin */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255,255,255,0.28);
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  text-align: left;
+  background: rgba(255,255,255,0.28);
+}
+
+td {
+  background: rgba(255,255,255,0.28);
+}
+
+/* Status style */
+.room-card.booked {
+  background: #f1f5f9;
+  opacity: 0.6;
+}
+
+.room-card.booked h3 {
+  height: 34px;
+  line-height: 34px;
+  padding: 0 10px;
+  min-width: 140px;
+  box-sizing: border-box;
+}
+.room-card.booked .price {
+  color: #991b1b;
+  font-weight: 600;
+}
+
+.unavailable-title,
+.unavailable-text {
+  text-align: center;
+  color: #ffffff;
+}
+
+.no-rooms {
+  color: #111827;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* My bookings page: table border */
+.table-box {
+  background: rgba(255,255,255,0.28);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  backdrop-filter: blur(14px);
+}
+
+.status-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status {
+  font-weight: 600;
+  margin: 0;
+}
+
+.status-actions form {
+  margin: 0;
+}
+
+.cancel-btn {
+  padding: 4px 10px;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.pay-btn {
+  padding: 4px 10px;
+  font-size: 13px;
+  line-height: 1;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.pay-btn:hover {
+  background: #1e40af;
+}
+
+.booking-id-col {
+  width: 110px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Login card: width and glass effect */
+.login-card {
+  width: 24%;
+  max-width: 320px;
+  margin: 90px auto;
+  padding: 18px 32px 32px;
+  background: rgba(255,255,255,0.28);
+  backdrop-filter: blur(14px);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .login-card {
+    width: 95vw;
+    max-width: 98vw;
+    min-width: 0;
+    margin: 32px auto;
+    padding: 12px 6vw 24px 6vw;
+    box-sizing: border-box;
+  }
+  .auth-form input[type="text"],
+  .auth-form input[type="email"],
+  .auth-form input[type="password"],
+  .auth-form input[type="number"] {
+    width: 100%;
+    min-width: 0;
+    font-size: 16px;
+    padding: 10px 8px;
+    box-sizing: border-box;
+  }
+  .auth-form button[type="submit"] {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 0;
+  }
+}
+
+/* Login success hint */
+.login-success {
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+}
+
+/* Login/Register error hint */
+.login-error {
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+}
+
+/* Fix Chrome autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #f1f5f9 inset !important;
+  box-shadow: 0 0 0 1000px #f1f5f9 inset !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+
+/* Advanced Hotel Admin Dashboard */
+
+.admin-container {
+  max-width: 950px;
+  margin: 120px auto 60px;
+  padding: 45px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+}
+
+.admin-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.admin-section-title {
+  color: #ffffff;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.admin-divider {
+  border: none;
+  height: 1px;
+  background: rgba(255,255,255,0.3);
+  margin: 30px 0;
+}
+
+/* Form */
+.admin-form {
+  display: flex;
+  gap: 15px;
+}
+
+.admin-form input[name] {
+  height: 46px;
+  padding: 0 16px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 12px;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.admin-form input[name]:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 4px rgba(96,165,250,0.35);
+}
+
+.admin-form button {
+  height: 46px;
+  padding: 0 22px;
+  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 15px 30px rgba(30,64,175,0.45);
+}
+
+.admin-form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(30,64,175,0.6);
+}
+
+/* Room list */
+.admin-room-list {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-room-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  color: #ffffff;
+}
+
+.delete-btn {
+  height: 46px;
+  padding: 0 22px;
+  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 15px 30px rgba(30,64,175,0.45);
+}
+
+.delete-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(30,64,175,0.6);
+}
+
+/* Table */
+.admin-table-wrapper {
+  margin-top: 20px;
+}
+
+.admin-container table {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.admin-container th {
+  background: rgba(255,255,255,0.35);
+  font-weight: 600;
+}
+
+.admin-container td {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Status color */
+.status-cancelled {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;   
+  }
+  .container {
+    width: 100%;
+    padding: 0 5px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  header {
+    flex-direction: row;
+    padding: 8px 8px 8px 12px;
+  }
+  /* Table horizontal scroll */
+  .table-box, .admin-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  table {
+    min-width: 600px;
+    width: max-content;
+    font-size: 15px;
+  }
+  th, td {
+    white-space: nowrap;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+  nav {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: #1f2933ee;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 18px 24px 18px 18px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1000;
+    min-width: 140px;
+    transition: max-height 0.3s, opacity 0.3s;
+  }
+  nav.open {
+    max-height: 400px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  nav a, .nav-welcome {
+    font-size: 17px;
+    padding: 12px 0 12px 8px;
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    box-sizing: border-box;
+    word-break: break-all;
+    white-space: normal;
+  }
+  nav a:last-child, .nav-welcome:last-child {
+    border-bottom: none;
+  }
+  nav a {
+    min-height: 44px;
+    line-height: 1.3;
+  }
+  nav.open {
+    min-width: 180px;
+  }
+}

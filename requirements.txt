@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+SQLAlchemy
+Jinja2
+passlib[bcrypt]
+bcrypt==4.0.1
+python-dotenv
+python-multipart
+email-validator
+itsdangerous
+PyMySQL
+stripe>=9.0.0
+aiofiles

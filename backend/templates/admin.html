@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-container">
+  <h2 class="admin-title">Admin Dashboard</h2>
+
+  {% if flash %}
+    <div class="alert alert-{{ flash.level }}">
+      {{ flash.message }}
+    </div>
+  {% endif %}
+
+  <h3 class="admin-section-title">Add New Room</h3>
+  <form method="post" action="/admin/add-room" class="admin-form" autocomplete="off">
+    <input
+      name="name"
+      type="text"
+      placeholder="Room Name"
+      required
+      autocomplete="off"
+    >
+    <input
+      name="amenities"
+      type="text"
+      placeholder="Amenities"
+      required
+      autocomplete="off"
+    >
+    <input
+      name="price"
+      type="text"
+      placeholder="Price per night"
+      required
+      autocomplete="off"
+    >
+    <button type="submit">Add Room</button>
+  </form>
+
+    <hr class="admin-divider">
+
+    <h3 class="admin-section-title">Existing Rooms</h3>
+    {% if rooms %}
+      <ul class="admin-room-list">
+        {% for room in rooms %}
+          <li>
+            <span>{{ room.name }} — {{ room.amenities }} — SEK{{ room.price }}</span>
+            <form method="post" action="/admin/delete-room" style="display:inline;">
+                <input
+                  type="hidden"
+                  name="room_id"
+                  value="{{ room.id }}"
+                >
+              <button type="submit" class="delete-btn">Delete</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No rooms added yet.</p>
+    {% endif %}
+
+    <hr class="admin-divider">
+
+    <h3 class="admin-section-title">Bookings</h3>
+
+    {% if bookings %}
+    <div class="admin-table-wrapper table-scroll-x">
+      <div class="table-scroll-inner">
+        <table>
+          <thead>
+            <tr>
+              <th class="booking-id-col">Booking ID</th>
+              <th>User</th>
+              <th>Room</th>
+              <th>Check-in</th>
+              <th>Check-out</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for b in bookings %}
+          <tr>
+            <td class="booking-id-col">{{ b.id }}</td>
+            <td>{{ b.user.user_name }}</td>
+            <td>{{ b.room.name }}</td>
+            <td>{{ b.check_in }}</td>
+            <td>{{ b.check_out }}</td>
+            <td>
+                {% if b.status == "cancelled" %}
+                  <span class="status-cancelled">Cancelled</span>
+                {% elif b.status == "paid" %}
+                  <span class="status-paid">paid</span>
+                {% else %}
+                  Active
+                {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scroll-tip">← Swipe left/right to see more</div>
+    </div>
+    {% else %}
+    <p>No bookings yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

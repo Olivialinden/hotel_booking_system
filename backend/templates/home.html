@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% set user = request.session.get("user") %}
+
+{% set has_date_filter = check_in and check_out %}
+
+{% if flash %}
+<div class="alert alert-{{ flash.level }}">
+  {{ flash.message }}
+</div>
+{% endif %}
+
+<!-- Date filter form: refreshes page with query parameters after submit. -->
+<form method="get" class="date-filter">
+  <label>
+    Check-in
+    <input
+      type="date"
+      id="check-in"
+      name="check_in"
+      value="{{ check_in }}"
+      min="{{ today }}"
+    >
+  </label>
+
+  <label>
+    Check-out
+    <input
+      type="date"
+      id="check-out"
+      name="check_out"
+      value="{{ check_out }}"
+      min="{{ check_in or today }}"
+    >
+  </label>
+
+  <button type="submit">Search Availability</button>
+</form>
+
+<!-- Available rooms section -->
+<h2>Rooms & Suites</h2>
+
+{% if available_rooms %}
+<div class="room-grid">
+
+  {% for room in available_rooms %}
+  <div class="room-card">
+
+    <h3>{{ room.name }}</h3>
+    <p class="amenities">{{ room.amenities }}</p>
+    <p class="price">From {{ room.price }} per night</p>
+    {% if user %}
+
+    <form method="post" action="/book" class="booking-form">
+        <input
+          type="hidden"
+          name="room_id"
+          value="{{ room.id }}"
+        >
+        <input
+          type="hidden"
+          name="check_in"
+          value="{{ check_in }}"
+        >
+        <input
+          type="hidden"
+          name="check_out"
+          value="{{ check_out }}"
+        >
+
+      {% if has_date_filter %}
+      <!-- Dates selected: can reserve -->
+      <button type="submit">Reserve Room</button>
+      {% else %}
+      <!-- Dates not selected: button disabled (CSS :disabled controls appearance) -->
+      <button type="submit" disabled>Select dates above</button>
+      {% endif %}
+    </form>
+    {% else %}
+    <p class="login-hint">
+      <a href="/login">Login</a> to book this room
+    </p>
+    {% endif %}
+
+  </div>
+  {% endfor %}
+
+</div>
+{% else %}
+<p class="no-rooms">No rooms available today.</p>
+{% endif %}
+
+<!-- unavailable rooms only shown when dates are filtered -->
+
+{% if has_date_filter and booked_rooms %}
+<h2 class="unavailable-title">Unavailable for Selected Dates</h2>
+
+<div class="room-grid">
+  {% for room in booked_rooms %}
+  <div class="room-card booked">
+    <h3>{{ room.name }}</h3>
+    <p class="amenities">{{ room.amenities }}</p>
+    <p class="price">Currently unavailable</p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}
