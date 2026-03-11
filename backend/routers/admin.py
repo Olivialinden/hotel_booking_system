@@ -2,17 +2,22 @@ import os
 from fastapi import APIRouter, Request, Depends, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
-from backend.database import SessionLocal
+from sqlalchemy.orm import Session
+from backend.database import get_db 
 from backend.models import Room, Booking
 from backend.dependencies import require_admin_user, pop_flash, set_flash
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 router = APIRouter()
 
 @router.get("/admin")
-def admin_page(request: Request, user=Depends(require_admin_user)):
-    db = SessionLocal()
+def admin_page(
+    request: Request, 
+    db: Session = Depends(get_db),  
+    user=Depends(require_admin_user)
+):
     rooms = db.query(Room).all()
     bookings = db.query(Booking).all()
     flash = pop_flash(request)
@@ -32,9 +37,10 @@ def add_room(
     name: str = Form(...),
     amenities: str = Form(...),
     price: int = Form(...),
+    db: Session = Depends(get_db),  
     user=Depends(require_admin_user)
 ):   
-    db = SessionLocal()   
+   
     room = Room(
         name=name,
         amenities=amenities,
@@ -49,9 +55,10 @@ def add_room(
 def delete_room(
     request: Request,
     room_id: int = Form(...),
+    db: Session = Depends(get_db), 
     user=Depends(require_admin_user)
 ):
-    db = SessionLocal()
+
 
     # Check if there are any active bookings
     active_booking = db.query(Booking).filter(

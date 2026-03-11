@@ -3,7 +3,8 @@ import stripe
 from fastapi import APIRouter, Request, Depends, Form, HTTPException
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
-from backend.database import SessionLocal
+
+from backend.database import get_db  
 from backend.models import Booking
 from backend.dependencies import get_logged_in_user, set_flash
 
@@ -13,11 +14,9 @@ router = APIRouter()
 def create_checkout_session(
     request: Request,
     booking_id: int = Form(...),
+    db: Session = Depends(get_db),  
     user=Depends(get_logged_in_user),
 ):
-   
-    db = SessionLocal()
-   
     booking = db.query(Booking).filter(
         Booking.id == booking_id,
         Booking.user_id == user["id"],
@@ -87,9 +86,10 @@ def create_checkout_session(
 def payment_success(
     request: Request,
     session_id: str,
+    db: Session = Depends(get_db), 
     user=Depends(get_logged_in_user),
 ):
-    db = SessionLocal()
+   
     stripe_secret_key = os.getenv("STRIPE_SECRET_KEY")
     if not stripe_secret_key:
         set_flash(request, "Stripe is not configured: set STRIPE_SECRET_KEY in .env", "error")

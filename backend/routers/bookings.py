@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request, Depends, Form, HTTPException
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
-from backend.database import SessionLocal
+from backend.database import get_db  
 from backend.models import Booking
 from backend.dependencies import get_logged_in_user, set_flash
 from datetime import date
@@ -15,9 +15,10 @@ def create_booking(
     room_id: int = Form(...),
     check_in: date = Form(...),
     check_out: date = Form(...),
+    db: Session = Depends(get_db),   
     user=Depends(get_logged_in_user),
 ):
-    db = SessionLocal()
+   
     today = date.today()
     if check_in < today or check_out <= check_in:
         
@@ -60,9 +61,10 @@ def create_booking(
 def cancel_booking(
     request: Request,
     booking_id: int = Form(...),
+    db: Session = Depends(get_db),  
     user=Depends(get_logged_in_user),
 ):
-    db = SessionLocal()
+
     # users should only be able to cancel their own active bookings
     booking = db.query(Booking).filter(
         Booking.id == booking_id,

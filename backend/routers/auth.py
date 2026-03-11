@@ -1,8 +1,9 @@
 import re
 from urllib.parse import quote
-from fastapi import APIRouter, Request, Form
+from fastapi import APIRouter, Request, Form, Depends
 from fastapi.responses import RedirectResponse
-from backend.database import SessionLocal
+from sqlalchemy.orm import Session
+from backend.database import get_db  
 from backend.security import generate_password_hash, check_password
 from backend.queries import get_user_by_email, create_user
 
@@ -27,9 +28,10 @@ def validate_password(password: str) -> tuple[bool, str]:
 def handle_user_registration(
     user_name: str = Form(None),
     email: str = Form(...),
-    password: str = Form(...)
+    password: str = Form(...),
+    db: Session = Depends(get_db) 
 ):
-    db = SessionLocal() 
+
     if not validate_email(email):
         safe_error = quote("Invalid email format")
         return RedirectResponse(f"/register?has_error={safe_error}", status_code=303)
@@ -52,9 +54,10 @@ def handle_user_registration(
 def handle_user_login(
     request: Request,
     email: str = Form(...),
-    password: str = Form(...)
+    password: str = Form(...),
+    db: Session = Depends(get_db) 
 ):
-    db = SessionLocal()
+
     user = get_user_by_email(db, email)
  
     if not user or not check_password(password, user.password):

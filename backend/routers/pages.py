@@ -1,8 +1,10 @@
 import os
 from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
+from sqlalchemy.orm import Session
 from datetime import date
-from backend.database import SessionLocal
+
+from backend.database import get_db  
 from backend.dependencies import get_logged_in_user, pop_flash
 from backend.queries import (
     get_booked_room_ids,
@@ -17,8 +19,11 @@ templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 router = APIRouter()
 
 @router.get("/")
-def show_home_page(request: Request):
-    db = SessionLocal()   
+def show_home_page(
+    request: Request,
+    db: Session = Depends(get_db)  
+):
+   
     check_in = request.query_params.get("check_in")
     check_out = request.query_params.get("check_out")
   
@@ -74,9 +79,10 @@ def show_register_page(request: Request):
 @router.get("/my-bookings")
 def show_my_bookings_page(
     request: Request,
+    db: Session = Depends(get_db),  
     current_user=Depends(get_logged_in_user),
 ):
-    db = SessionLocal()
+    
     all_bookings = get_bookings_by_user(db, current_user["id"])
     currency_code = os.getenv("STRIPE_CURRENCY", "sek").upper()
   
