@@ -184,6 +184,8 @@ body {
   margin: 0;
   background: url('../images/hotel_background.jpg') no-repeat center center;
   background-size: cover;
+  background-attachment: fixed;  
+  min-height: 100vh; 
   color: #333;
 }
 
@@ -202,13 +204,16 @@ body::before {
 body.my-bookings-bg {
   background: url('../images/my_booking_bg.jpg') no-repeat center center;
   background-size: cover;
+  background-attachment: fixed; 
+  min-height: 100vh;
 }
 
 /* Login page: custom background */
 body.login-bg {
   background: url('../images/login_bg.jpg') no-repeat center center;
   background-size: cover;
-
+  background-attachment: fixed;  
+  min-height: 100vh;
 }
 
 @media (max-width: 600px) {
